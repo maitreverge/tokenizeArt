@@ -1,0 +1,180 @@
+/* Windmill42 mint page: colours taken from the Spring Meadow artwork. */
+:root {
+  --sky: #cfeeff;
+  --meadow: #4f9d3a;
+  --meadow-dark: #2f6b22;
+  --sun: #ffd166;
+  --barn: #d1495b;
+  --ink: #1f2a1f;
+  --muted: #55624f;
+  --card: #ffffff;
+  --line: #d8e6d0;
+  --page: #f3f9ee;
+  --pixel: "Press Start 2P", ui-monospace, monospace;
+  --body: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --card: #1d2a1d;
+    --page: #121a12;
+    --ink: #e7f2e2;
+    --muted: #a9baa2;
+    --line: #2f432d;
+    --sky: #1c3446;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font: 16px/1.5 var(--body);
+}
+
+h1, h2 { font-family: var(--pixel); font-weight: 400; margin: 0; }
+h1 { font-size: 1.25rem; color: var(--meadow-dark); }
+h2 { font-size: 0.8rem; margin-bottom: 1rem; }
+
+a { color: var(--meadow); }
+
+/* --- header ------------------------------------------------------------ */
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem max(16px, calc((100% - 1080px) / 2));
+  background: var(--sky);
+  border-bottom: 4px solid var(--meadow);
+}
+.subtitle { margin: 0.4rem 0 0; color: var(--muted); font-size: 0.9rem; }
+.wallet { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+
+.badge {
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+.badge.ok { border-color: var(--meadow); }
+.badge.warn { border-color: var(--barn); color: var(--barn); }
+
+/* --- buttons ----------------------------------------------------------- */
+.button {
+  font: 0.65rem/1 var(--pixel);
+  padding: 0.8rem 1rem;
+  border: 0;
+  color: var(--ink);
+  background: var(--sun);
+  box-shadow: 0 4px 0 #c99a2e;
+  cursor: pointer;
+}
+.button.primary { background: var(--meadow); color: #fff; box-shadow: 0 4px 0 var(--meadow-dark); }
+.button:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 2px 0 var(--meadow-dark); }
+.button:disabled { opacity: 0.45; cursor: not-allowed; }
+.button:focus-visible, input:focus-visible { outline: 3px solid var(--barn); outline-offset: 2px; }
+
+/* --- layout ------------------------------------------------------------ */
+main { max-width: 1080px; margin: 0 auto; padding: 1.5rem 16px; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+  min-width: 0;
+}
+
+.columns { display: grid; gap: 1.25rem; grid-template-columns: 1fr 1fr; }
+.columns .card { margin-bottom: 0; }
+@media (max-width: 760px) { .columns { grid-template-columns: 1fr; } }
+
+/* --- status line ------------------------------------------------------- */
+.status {
+  /* stays visible while scrolling: answers to Mint/Lookup show here */
+  position: sticky;
+  top: 8px;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  min-height: 1.5rem;
+  margin: 0 0 1rem;
+  padding: 0.6rem 0.9rem;
+  border-left: 4px solid var(--sun);
+  background: var(--card);
+  overflow-wrap: anywhere;
+}
+.status:empty { visibility: hidden; }
+.status[data-kind="ok"] { border-color: var(--meadow); }
+.status[data-kind="error"] { border-color: var(--barn); }
+.status.flash { animation: flash 0.6s ease-out; }
+@keyframes flash { from { background: var(--sun); } }
+@media (prefers-reduced-motion: reduce) { .status.flash { animation: none; } }
+
+/* --- artwork ----------------------------------------------------------- */
+.frames { display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center; }
+figure { margin: 0; text-align: center; }
+.frame {
+  width: min(256px, 80vw);
+  margin: 0 auto;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  background: var(--sky);
+  border: 4px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--meadow);
+}
+.frame img {
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;  /* keep the pixel art sharp */
+}
+.placeholder { font: 2rem var(--pixel); color: var(--muted); }
+figcaption { display: grid; gap: 0.2rem; margin-top: 0.9rem; font-size: 0.85rem; color: var(--muted); }
+figcaption strong { font: 0.6rem var(--pixel); color: var(--ink); }
+
+/* --- collection facts -------------------------------------------------- */
+.facts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem 1rem;
+  margin: 0 0 1.25rem;
+}
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.progress {
+  display: block;
+  height: 8px;
+  margin-top: 0.4rem;
+  background: var(--line);
+}
+.progress span { display: block; height: 100%; width: 0; background: var(--meadow); }
+.hint { color: var(--muted); font-size: 0.85rem; margin: 0.8rem 0 0; }
+
+/* --- lookup ------------------------------------------------------------ */
+.lookup { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+.lookup input {
+  width: 5rem;
+  padding: 0.55rem;
+  font: inherit;
+  color: var(--ink);
+  background: var(--page);
+  border: 2px solid var(--line);
+}
+.token-table { width: 100%; margin-top: 1rem; border-collapse: collapse; font-size: 0.9rem; }
+.token-table th, .token-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid var(--line);
+  overflow-wrap: anywhere;
+}
+.token-table th { color: var(--muted); font-weight: 500; width: 7.5rem; }
+
+footer { text-align: center; color: var(--muted); font-size: 0.8rem; padding: 0 16px 2rem; }

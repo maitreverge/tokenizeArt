@@ -1,0 +1,13 @@
+[tool.pytest.ini_options]
+testpaths = ["code/tests", "deployment/tests", "mint/tests"]
+pythonpath = ["deployment", "mint"]
+addopts = "-p no:cacheprovider"
+
+[tool.mypy]
+strict = true
+mypy_path = ["deployment", "mint"]
+explicit_package_bases = true
+ignore_missing_imports = true
+
+[tool.black]
+line-length = 79

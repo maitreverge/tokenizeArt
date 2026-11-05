@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Only this site, cdnjs (ethers) and Google Fonts may load code/styles.
+       Images may come from https (the IPFS gateway) and data: (the SVG). -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 script-src 'self' https://cdnjs.cloudflare.com;
+                 style-src 'self' https://fonts.googleapis.com;
+                 font-src https://fonts.gstatic.com;
+                 img-src 'self' data: https:;
+                 connect-src 'self'">
+  <title>Windmill42 Mint</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1>Windmill42</h1>
+      <p class="subtitle">Spring Meadow · by flverge</p>
+    </div>
+    <div class="wallet">
+      <span id="network-badge" class="badge" hidden></span>
+      <span id="account-badge" class="badge" hidden></span>
+      <button id="connect-button" class="button">Connect MetaMask</button>
+      <button id="switch-button" class="button" hidden>Switch account</button>
+      <button id="disconnect-button" class="button" hidden>Disconnect</button>
+    </div>
+  </header>
+
+  <main>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+
+    <section class="card artwork" aria-labelledby="artwork-title">
+      <h2 id="artwork-title">The artwork</h2>
+      <div class="frames">
+        <figure>
+          <div class="frame">
+            <img id="onchain-image" alt="Windmill42 artwork rebuilt on-chain"
+                 width="256" height="256" hidden>
+            <span id="onchain-placeholder" class="placeholder">?</span>
+          </div>
+          <figcaption>
+            <strong>Stored on-chain</strong>
+            <span>svgImage(): rebuilt by the contract from pixel data</span>
+          </figcaption>
+        </figure>
+        <figure>
+          <div class="frame">
+            <img id="ipfs-image" alt="Windmill42 artwork pinned on IPFS"
+                 width="256" height="256" hidden>
+            <span id="ipfs-placeholder" class="placeholder">?</span>
+          </div>
+          <figcaption>
+            <strong>Pinned on IPFS</strong>
+            <a id="ipfs-link" href="#" target="_blank" rel="noopener" hidden>
+              open the file</a>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <div class="columns">
+      <section class="card" aria-labelledby="collection-title">
+        <h2 id="collection-title">Collection</h2>
+        <dl class="facts">
+          <dt>Contract</dt>
+          <dd><a id="contract-link" href="#" target="_blank"
+                 rel="noopener"></a></dd>
+          <dt>Token</dt>
+          <dd id="collection-name">–</dd>
+          <dt>Owner</dt>
+          <dd id="contract-owner">–</dd>
+          <dt>Minted</dt>
+          <dd><span id="minted-count">–</span>
+            <span class="progress"><span id="minted-bar"></span></span></dd>
+        </dl>
+        <button id="mint-button" class="button primary" disabled>
+          Mint a Windmill42</button>
+        <p id="mint-hint" class="hint"></p>
+      </section>
+
+      <section class="card" aria-labelledby="lookup-title">
+        <h2 id="lookup-title">Look up a token</h2>
+        <!-- novalidate: app.js checks the ID and explains the error -->
+        <form id="lookup-form" class="lookup" novalidate>
+          <label for="token-id">Token ID</label>
+          <input id="token-id" type="number" inputmode="numeric"
+                 min="1" max="42" step="1" value="1" required>
+          <button id="lookup-button" class="button" disabled>
+            ownerOf + tokenURI</button>
+        </form>
+        <table id="token-table" class="token-table" hidden>
+          <tbody id="token-rows"></tbody>
+        </table>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    Sepolia testnet · ERC-721 · 42 tokens max · 42 TokenizeArt
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.17.0/ethers.umd.min.js"
+          integrity="sha512-AtjhVooOwBRjcpe7YjaQI6VDIBYNqpPGbuhQi0RtmoWQDD9mf9tu4p2jGXLiSw0nhE1JBvOjAbQL43yrva6C2g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="app.js"></script>
+</body>
+</html>

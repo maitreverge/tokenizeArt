@@ -1,0 +1,31 @@
+services:
+  # Interactive toolbox: deploy script, IPFS pinning, mint TUI, tests.
+  #   docker compose run --rm tokenizeart
+  tokenizeart:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tokenizeart:latest
+    # Run as the host user so generated files are not owned by root
+    user: "${UID:-1000}:${GID:-1000}"
+    environment:
+      HOME: /tmp
+    stdin_open: true # keep STDIN open, needed by the interactive TUI
+    tty: true
+    volumes:
+      - .:/app # edit on the host, no rebuild needed
+      - /app/deployment/node_modules # keep the image's node_modules
+      - /app/.venv # keep the image's virtual env
+
+  # Mint website on http://localhost:8042
+  #   docker compose up website
+  website:
+    image: tokenizeart:latest
+    user: "${UID:-1000}:${GID:-1000}"
+    command: >
+      python -m http.server 8042 --bind 0.0.0.0
+      --directory /app/mint/website
+    ports:
+      - "127.0.0.1:8042:8042" # this machine only
+    volumes:
+      - ./mint/website:/app/mint/website:ro

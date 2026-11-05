@@ -1,0 +1,13 @@
+.git
+.gitignore
+.env
+.superpowers/
+__pycache__/
+*.py[cod]
+.mypy_cache/
+.pytest_cache/
+.venv/
+venv/
+node_modules/
+package-lock.json
+subject.pdf

@@ -1,0 +1,12 @@
+{
+  "network": "sepolia",
+  "chainId": 11155111,
+  "address": "0x45DEDC83B233B846F6FED1a118d71bEEffAE0f97",
+  "txHash": "0x65fdc2d9c55115c32dbba26384b5c31c76b0337049fb82da4d9ee77594c31108",
+  "blockNumber": 12027336,
+  "tokenId": 1,
+  "owner": "0xA73aE1B15e9527F169283f0b5302529FCC200246",
+  "mintTxHash": "0xa10b8fd4eb57ca68852c5de8d6077fbe12e5375aa1e7651879c274f574bc18fc",
+  "imageURI": "ipfs://bafkreictfou6ncwuojw6dp3n7edozfmrr5c7gn7ojbxtz3bbz3opyqxjfu",
+  "etherscan": "https://sepolia.etherscan.io/nft/0x45DEDC83B233B846F6FED1a118d71bEEffAE0f97/1"
+}
